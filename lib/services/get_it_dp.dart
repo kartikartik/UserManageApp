@@ -17,15 +17,15 @@ void setup() async {
   Workmanager().initialize(
     callbackDispatcher,
     isInDebugMode: true,
-  ); // Initialize WorkManager in your main function
+  ); // Initialize WorkManager in main function
   Hive.initFlutter();
   Hive.registerAdapter(UserOfflineModelAdapter());
 
-  // Register your repositories
+  // Register  repositories
   getIt.registerLazySingleton<UserListRepository>(() => UserListRepository());
   getIt.registerLazySingleton<MovieRepository>(() => MovieRepository());
 
-  // Register your blocs
+  // Register blocs
   getIt.registerFactory<UserListBloc>(
     () => UserListBloc(getIt<UserListRepository>()),
   );
