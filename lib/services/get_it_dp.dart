@@ -4,6 +4,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:user_manage_app/bloc/movie_details/movie_detail_bloc.dart';
 import 'package:user_manage_app/bloc/movie_list/movie_list_bloc.dart';
 import 'package:user_manage_app/bloc/user_list/user_list_bloc.dart';
+import 'package:user_manage_app/bloc/user_offline/user_offline_bloc.dart';
 import 'package:user_manage_app/model/user_offline_model.dart';
 import 'package:user_manage_app/repositories/movie_repository.dart';
 import 'package:user_manage_app/services/offline_data_handle.dart';
@@ -29,6 +30,9 @@ void setup() async {
   getIt.registerFactory<UserListBloc>(
     () => UserListBloc(getIt<UserListRepository>()),
   );
+
+  getIt.registerFactory<UserOfflineBloc>(() => UserOfflineBloc());
+
   getIt.registerFactory<MovieListBloc>(
     () => MovieListBloc(getIt<MovieRepository>()),
   );

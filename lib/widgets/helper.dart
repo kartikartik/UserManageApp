@@ -7,7 +7,7 @@ extension CachedNetworkImageExtension on CachedNetworkImage {
     required String imageUrl,
     double? width,
     double? height,
-    BoxFit fit = BoxFit.cover,
+    BoxFit fit = BoxFit.fill,
     Color? placeholderColor,
     Color? errorColor,
   }) {

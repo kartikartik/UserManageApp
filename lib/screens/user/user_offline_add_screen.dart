@@ -31,9 +31,7 @@ class UserOfflineAddScreen extends StatelessWidget {
               );
             } else if (state is UserError) {
               Navigator.of(context).pop(); // Dismiss loading dialog
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(state.message)));
+            
             } else {
               Navigator.of(context).pop();
               // Show success message

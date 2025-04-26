@@ -15,7 +15,10 @@ class MovieDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Movie Details')),
+      appBar: AppBar(
+        title: Text('Movie Details'),
+        backgroundColor: Colors.transparent, elevation: 0, // Customize AppBar color
+      ),
       body: BlocProvider(
         create: (context) => getIt<MovieDetailBloc>()..add(FetchMovieDetail(movieId)),
         child: MovieDetailView(),
@@ -41,38 +44,43 @@ class MovieDetailView extends StatelessWidget {
 
         final movie = state.movie!;
         return SingleChildScrollView(
-          child: Padding(
+          child: Container(
+            color: Colors.white, // Background color
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CachedNetworkImageExtension.customImage(
-                  imageUrl: '$movieImage${movie.posterPath}',
-                  width: 120,
-                  height: 140,
-                  placeholderColor: Colors.blue,
-                  errorColor: Colors.red, 
+                Card(
+                  elevation: 4,
+                  child: CachedNetworkImageExtension.customImage(
+                    imageUrl: '$movieImage${movie.posterPath}',
+                    width: double.infinity,
+                    height: 250,
+                    fit: BoxFit.cover,
+                    placeholderColor: Colors.blue,
+                    errorColor: Colors.red,
+                  ),
                 ),
-          
                 SizedBox(height: 16),
                 Text(
                   movie.title,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.teal),
                 ),
                 SizedBox(height: 8),
                 Text(
                   'Release Date: ${movie.releaseDate}',
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: 16, color: Colors.grey[600]),
                 ),
                 SizedBox(height: 16),
-                
                 Text(
                   'Description:',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.teal),
                 ),
                 SizedBox(height: 8),
-                
-                Text(movie.description, style: TextStyle(fontSize: 16)),
+                Text(
+                  movie.description,
+                  style: TextStyle(fontSize: 16, height: 1.5),
+                ),
               ],
             ),
           ),

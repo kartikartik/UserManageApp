@@ -19,14 +19,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'User List App',
       home:
-      // BlocProvider(
-      //   create: (context) => getIt<UserListBloc>(), // Provide the UserBloc
-      //   child: UserListScreen(),
-      // ),
       BlocProvider(
-        create: (context) => getIt<MovieListBloc>(), // Provide the UserBloc
-        child: MovieListScreen(),
+        create: (context) => getIt<UserListBloc>(), // Provide the UserBloc
+        child: UserListScreen(),
       ),
+      // BlocProvider(
+      //   create: (context) => getIt<MovieListBloc>(), // Provide the UserBloc
+      //   child: MovieListScreen(),
+      // ),
     );
   }
 }

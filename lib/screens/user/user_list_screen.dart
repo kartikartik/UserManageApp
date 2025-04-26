@@ -42,7 +42,7 @@ class _UserListScreenState extends State<UserListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('User List')),
+      appBar: AppBar(title: Text('User List'), backgroundColor: Colors.transparent,),
       body: BlocBuilder<UserListBloc, UserListState>(
         builder: (context, state) {
           if (state.users.isEmpty) {
