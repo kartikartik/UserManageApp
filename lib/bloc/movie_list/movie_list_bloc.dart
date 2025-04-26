@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:user_manage_app/bloc/movie/movieList/movie_list_event.dart';
-import 'package:user_manage_app/bloc/movie/movieList/movie_list_state.dart';
-import 'package:user_manage_app/services/user_list_repository.dart';
+import 'package:user_manage_app/bloc/movie_list/movie_list_event.dart';
+import 'package:user_manage_app/bloc/movie_list/movie_list_state.dart';
+import 'package:user_manage_app/repositories/movie_repository.dart';
 
 class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
      final MovieRepository movieRepository;

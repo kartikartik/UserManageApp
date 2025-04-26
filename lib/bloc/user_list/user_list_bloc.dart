@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:user_manage_app/bloc/userList/user_list_event.dart';
-import 'package:user_manage_app/bloc/userList/user_list_state.dart';
-import 'package:user_manage_app/services/user_list_repository.dart';
+import 'package:user_manage_app/bloc/user_list/user_list_event.dart';
+import 'package:user_manage_app/bloc/user_list/user_list_state.dart';
+import 'package:user_manage_app/repositories/user_list_repository.dart';
 
 class UserListBloc extends Bloc<UserListEvent, UserListState> {
   final UserListRepository userRepository;

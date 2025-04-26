@@ -1,4 +1,4 @@
-import 'package:user_manage_app/model/movie/movie_list_model.dart';
+import 'package:user_manage_app/model/movie_list_model.dart';
 
 class MovieListState {
   final List<MovieListModel> movies;

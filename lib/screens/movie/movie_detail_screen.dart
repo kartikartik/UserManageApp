@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:user_manage_app/bloc/movie/movieDetails/movie_detail_bloc.dart';
-import 'package:user_manage_app/bloc/movie/movieDetails/movie_detail_event.dart';
-import 'package:user_manage_app/bloc/movie/movieDetails/movie_detail_state.dart';
+import 'package:user_manage_app/bloc/movie_details/movie_detail_bloc.dart';
+import 'package:user_manage_app/bloc/movie_details/movie_detail_event.dart';
+import 'package:user_manage_app/bloc/movie_details/movie_detail_state.dart';
 import 'package:user_manage_app/services/get_it_dp.dart';
-import 'package:user_manage_app/services/helper.dart';
-import 'package:user_manage_app/utils/utils.dart';
+import 'package:user_manage_app/widgets/helper.dart';
+import 'package:user_manage_app/utils/constants.dart';
 
 class MovieDetailScreen extends StatelessWidget {
   final int movieId;

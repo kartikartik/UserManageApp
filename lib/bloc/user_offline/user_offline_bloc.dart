@@ -1,9 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:user_manage_app/bloc/userOffline/user_offline_event.dart';
-import 'package:user_manage_app/bloc/userOffline/user_offline_state.dart';
+import 'package:user_manage_app/bloc/user_offline/user_offline_event.dart';
+import 'package:user_manage_app/bloc/user_offline/user_offline_state.dart';
 import 'package:user_manage_app/services/hive_services.dart';
-import 'package:user_manage_app/services/user_list_repository.dart';
+import 'package:user_manage_app/repositories/user_list_repository.dart';
 
 class UserOfflineBloc extends Bloc<UserOfflineEvent, UserOfflineState> {
   UserOfflineBloc() : super(UserInitial()) {

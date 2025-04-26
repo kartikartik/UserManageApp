@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'package:user_manage_app/services/helper.dart';
+import 'package:user_manage_app/widgets/helper.dart';
 import 'package:user_manage_app/services/hive_services.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:user_manage_app/services/user_list_repository.dart';
+import 'package:user_manage_app/repositories/user_list_repository.dart';
 
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
