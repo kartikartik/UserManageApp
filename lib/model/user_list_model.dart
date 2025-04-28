@@ -4,7 +4,12 @@ class UserList {
   final String lastName;
   final String avatar;
 
-  UserList({required this.id, required this.firstName, required this.lastName, required this.avatar});
+  UserList({
+    required this.id,
+    required this.firstName,
+    required this.lastName,
+    required this.avatar,
+  });
 
   factory UserList.fromJson(Map<String, dynamic> json) {
     return UserList(

@@ -6,6 +6,8 @@ import 'package:user_manage_app/bloc/user_offline/user_offline_state.dart';
 import 'package:user_manage_app/model/user_offline_model.dart';
 import 'package:user_manage_app/widgets/helper.dart';
 
+
+
 class UserOfflineAddScreen extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController jobController = TextEditingController();
@@ -35,7 +37,7 @@ class UserOfflineAddScreen extends StatelessWidget {
             } else {
               Navigator.of(context).pop();
               // Show success message
-              CustomToast.show(message: 'Offline User created successfully!');
+              CustomToast.show(message: 'User created successfully!');
 
               nameController.clear();
               jobController.clear();

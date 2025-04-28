@@ -17,7 +17,7 @@ class MovieDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Movie Details'),
-        backgroundColor: Colors.transparent, elevation: 0, // Customize AppBar color
+        backgroundColor: Colors.transparent, elevation: 0,
       ),
       body: BlocProvider(
         create: (context) => getIt<MovieDetailBloc>()..add(FetchMovieDetail(movieId)),
@@ -45,7 +45,7 @@ class MovieDetailView extends StatelessWidget {
         final movie = state.movie!;
         return SingleChildScrollView(
           child: Container(
-            color: Colors.white, // Background color
+            color: Colors.white,
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

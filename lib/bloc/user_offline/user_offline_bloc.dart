@@ -12,7 +12,7 @@ class UserOfflineBloc extends Bloc<UserOfflineEvent, UserOfflineState> {
       try {
         // Check for internet connectivity
         final connectivityResult = await (Connectivity().checkConnectivity());
-        if (connectivityResult.contains(ConnectivityResult.wifi)) {
+        if (connectivityResult.contains(ConnectivityResult.wifi)||connectivityResult.contains(ConnectivityResult.mobile)) {
           final user = await syncOfflineData(event.user.name, event.user.job);
 
           emit(UserLoaded([user]));

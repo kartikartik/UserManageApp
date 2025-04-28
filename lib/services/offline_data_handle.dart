@@ -38,13 +38,11 @@ void listenToConnectivityChanges() {
 
 void handleOffileData() async {
   var box = await HiveService().getUserBox();
+  
   for (var user in box.values) {
     final userId = await syncOfflineData(user.name, user.job);
-    // Update the user ID in Hive
-    // Show success toast
-
     CustomToast.show(message: "Data Synced Successfully.");
     user.id = userId.id;
-    await box.put(user, user);
+    await box.put(userId.id, user);
   }
 }

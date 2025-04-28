@@ -35,31 +35,22 @@ class MovieListView extends StatefulWidget {
 }
 
 class _MovieListViewState extends State<MovieListView> {
-  final ScrollController _scrollController = ScrollController();
+  late MovieListBloc _movieBloc;
   int _currentPage = 1;
 
   @override
   void initState() {
     super.initState();
 
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        _currentPage++;
-        context.read<MovieListBloc>().add(FetchMovies(_currentPage));
-      }
-    });
+    _movieBloc = getIt<MovieListBloc>();
+    _movieBloc.add(FetchMovies(_currentPage));
   }
 
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MovieListBloc, MovieListState>(
+        bloc: _movieBloc,
       builder: (context, state) {
         if (state.movies.isEmpty && state.errorMessage == null) {
           return Center(child: CircularProgressIndicator());
@@ -69,8 +60,17 @@ class _MovieListViewState extends State<MovieListView> {
           return Center(child: Text('${state.errorMessage}'));
         }
 
-        return GridView.builder(
-          controller: _scrollController,
+         return NotificationListener<ScrollNotification>(
+          onNotification: (scrollInfo) {
+            if (!state.hasReachedMax &&
+                scrollInfo.metrics.pixels ==
+                    scrollInfo.metrics.maxScrollExtent) {
+              _currentPage++;
+              _movieBloc.add(FetchMovies(_currentPage));
+            }
+            return false;
+          },
+          child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             childAspectRatio: 0.7,
@@ -132,7 +132,7 @@ class _MovieListViewState extends State<MovieListView> {
               ),
             );
  },
-        );
+        ));
       },
     );
   }

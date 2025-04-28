@@ -31,7 +31,10 @@ class UserListRepository {
 Future<UserOfflineModel> syncOfflineData(String name, String job) async {
   final response = await http.post(
     Uri.parse(userListUrl),
-    headers: {'Content-Type': 'application/json'},
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': 'reqres-free-v1',
+    },
     body: jsonEncode({'name': name, 'job': job}),
   );
 
@@ -44,5 +47,3 @@ Future<UserOfflineModel> syncOfflineData(String name, String job) async {
     throw Exception('Failed to create users');
   }
 }
-
-

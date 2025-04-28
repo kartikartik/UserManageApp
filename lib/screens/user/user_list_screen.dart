@@ -10,85 +10,20 @@ import 'package:user_manage_app/screens/user/user_offline_add_screen.dart';
 import 'package:user_manage_app/services/get_it_dp.dart';
 import 'package:user_manage_app/widgets/helper.dart';
 
-class UserListScreen extends StatefulWidget {
+class UserListScreen extends StatelessWidget {
   const UserListScreen({super.key});
-
-  @override
-  _UserListScreenState createState() => _UserListScreenState();
-}
-
-class _UserListScreenState extends State<UserListScreen> {
-  final ScrollController _scrollController = ScrollController();
-  int _currentPage = 1;
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        _currentPage++;
-        context.read<UserListBloc>().add(GetUsers(_currentPage));
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('User List'), backgroundColor: Colors.transparent,),
-      body: BlocBuilder<UserListBloc, UserListState>(
-        builder: (context, state) {
-          if (state.users.isEmpty) {
-            return Center(child: Text('No users found'));
-          }
-
-          if (state.users.isEmpty && state.hasReachedMax == false) {
-            return Center(child: CircularProgressIndicator());
-          }
-
-          return ListView.builder(
-            controller: _scrollController,
-            itemCount:
-                state.hasReachedMax
-                    ? state.users.length
-                    : state.users.length + 1,
-            itemBuilder: (context, index) {
-              if (index >= state.users.length) {
-                return Center(child: CircularProgressIndicator());
-              }
-              final user = state.users[index];
-              return ListTile(
-                leading: CachedNetworkImageExtension.customImage(
-                  imageUrl: user.avatar,
-                  width: 100,
-                  height: 100,
-                  placeholderColor: Colors.blue, 
-                  errorColor: Colors.red,
-                ),
-                title: Text('${user.firstName} ${user.lastName}'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) => BlocProvider.value(
-                            value: getIt<MovieListBloc>(),
-                            child: MovieListScreen(),
-                          ),
-                    ),
-                  );
-                },
-              );
-            },
-          );
-        },
+      appBar: AppBar(
+        title: Text('User List'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: BlocProvider(
+        create: (context) => getIt<UserListBloc>()..add(GetUsers(1)),
+        child: UserListView(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -106,6 +41,83 @@ class _UserListScreenState extends State<UserListScreen> {
         tooltip: 'Create User',
         child: const Icon(Icons.add),
       ),
+    );
+  }
+}
+
+class UserListView extends StatefulWidget {
+  const UserListView({super.key});
+
+  @override
+  _UserListViewState createState() => _UserListViewState();
+}
+
+class _UserListViewState extends State<UserListView> {
+  late UserListBloc _userBloc;
+  int _currentPage = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    _userBloc = getIt<UserListBloc>();
+    _userBloc.add(GetUsers(_currentPage));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<UserListBloc, UserListState>(
+      bloc: _userBloc,
+      builder: (context, state) {
+        if (state.users.isEmpty && state.errorMessage == null) {
+          return Center(child: CircularProgressIndicator());
+        }
+
+        if (state.errorMessage != null) {
+          return Center(child: Text('${state.errorMessage}'));
+        }
+
+        return NotificationListener<ScrollNotification>(
+          onNotification: (scrollInfo) {
+            if (!state.hasReachedMax &&
+                scrollInfo.metrics.pixels ==
+                    scrollInfo.metrics.maxScrollExtent) {
+              _currentPage++;
+              _userBloc.add(GetUsers(_currentPage));
+            }
+            return false;
+          },
+          child: ListView.builder(
+            itemCount: state.users.length,
+            itemBuilder: (context, index) {
+              final user = state.users[index];
+              return ListTile(
+                leading: ClipOval(
+                  child: CachedNetworkImageExtension.customImage(
+                    imageUrl: user.avatar,
+                    width: 50,
+                    height: 50,
+                    placeholderColor: Colors.blue,
+                    errorColor: Colors.red,
+                  ),
+                ),
+                title: Text('${user.firstName} ${user.lastName}'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) => BlocProvider.value(
+                            value: getIt<MovieListBloc>(),
+                            child: MovieListScreen(),
+                          ),
+                    ),
+                  );
+                },
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

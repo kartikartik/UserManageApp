@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:user_manage_app/bloc/movie_list/movie_list_bloc.dart';
 import 'package:user_manage_app/bloc/user_list/user_list_bloc.dart';
-import 'package:user_manage_app/screens/movie/movie_list_screen.dart';
 import 'package:user_manage_app/screens/user/user_list_screen.dart';
 import 'package:user_manage_app/services/get_it_dp.dart';
 
@@ -18,15 +16,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'User List App',
-      home:
-      BlocProvider(
+      home: BlocProvider(
         create: (context) => getIt<UserListBloc>(), // Provide the UserBloc
         child: UserListScreen(),
       ),
-      // BlocProvider(
-      //   create: (context) => getIt<MovieListBloc>(), // Provide the UserBloc
-      //   child: MovieListScreen(),
-      // ),
-    );
+         );
   }
 }
