@@ -22,7 +22,7 @@ class UserListScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: BlocProvider(
-        create: (context) => getIt<UserListBloc>()..add(GetUsers(1)),
+        create: (context) => getIt<UserListBloc>(),
         child: UserListView(),
       ),
       floatingActionButton: FloatingActionButton(
@@ -61,6 +61,12 @@ class _UserListViewState extends State<UserListView> {
     super.initState();
     _userBloc = getIt<UserListBloc>();
     _userBloc.add(GetUsers(_currentPage));
+  }
+
+  @override
+  void dispose() {
+    getIt.unregister<UserListBloc>();
+    super.dispose();
   }
 
   @override
